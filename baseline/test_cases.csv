@@ -8,4 +8,4 @@ T06,Storage,EBS Volume,Missing Encryption,Vulnerable
 T07,Database,RDS,Public Accessibility,Vulnerable
 T08,Logging,S3,Missing Access Logging,Vulnerable
 T09,Access Control,IAM,Overly Broad Policy,Vulnerable
-T10,Secure Configuration,AWS Resource,Secure Configuration,Secure
+S01,Secure Configuration,EBS Volume,Standard EBS Encryption Enabled,Secure-for-target-property

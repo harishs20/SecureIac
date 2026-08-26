@@ -6,3 +6,6 @@ T04,Security Group,Unrestricted HTTP ingress from 0.0.0.0/0,CKV_AWS_260,FAIL,"CK
 T05,IAM Role Policy,Excessive IAM permissions using wildcard Action and Resource,CKV_AWS_62,FAIL,"CKV_AWS_287; CKV_AWS_288; CKV_AWS_289; CKV_AWS_286; CKV_AWS_63; CKV_AWS_355; CKV_AWS_290; CKV2_AWS_40"
 T06,EBS Volume,Missing EBS encryption,CKV_AWS_3,FAIL,"CKV_AWS_189"
 T07,RDS,Publicly accessible RDS instance,CKV_AWS_17,FAIL,"CKV_AWS_129; CKV_AWS_226; CKV_AWS_16; CKV_AWS_118; CKV_AWS_161; CKV_AWS_293; CKV_AWS_157; CKV2_AWS_60"
+T08,S3 Bucket,Missing S3 access logging,CKV_AWS_18,FAIL,"CKV2_AWS_6; CKV2_AWS_62; CKV2_AWS_61; CKV_AWS_145; CKV_AWS_144"
+T09,IAM,IAM Policy,Overly broad resource scope for S3 DeleteBucket,CKV_AWS_355,FAIL,"CKV_AWS_290"
+S01,EBS Volume,Standard EBS encryption enabled,CKV_AWS_3,PASS,"CKV_AWS_189"
