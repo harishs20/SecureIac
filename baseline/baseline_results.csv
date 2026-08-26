@@ -1,0 +1,11 @@
+Test_ID,Category,Intended_Vulnerability,Primary_Checkov_Policy,Detected,Total_Failed_Findings
+T01,Storage,Missing S3 Public Access Block,CKV2_AWS_6,YES,6
+T02,Storage,Missing S3 Encryption,CKV_AWS_145,YES,6
+T03,Network,Unrestricted SSH Ingress,CKV_AWS_24,YES,2
+T04,Network,Unrestricted HTTP Ingress,CKV_AWS_260,YES,2
+T05,IAM,Excessive IAM Permissions,CKV_AWS_62,YES,9
+T06,Storage,Missing EBS Encryption,CKV_AWS_3,YES,2
+T07,Database,Publicly Accessible RDS,CKV_AWS_17,YES,9
+T08,Logging,Missing S3 Access Logging,CKV_AWS_18,YES,6
+T09,Access Control,Overly Broad IAM Resource Scope,CKV_AWS_355,YES,2
+S01,Secure Configuration,Standard EBS Encryption Enabled,CKV_AWS_3,YES,1
