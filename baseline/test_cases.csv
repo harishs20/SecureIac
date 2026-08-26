@@ -1,0 +1,11 @@
+Test_ID,Category,Resource,Intended_Vulnerability,Expected_Result
+T01,Storage,S3,Missing Public Access Block,Vulnerable
+T02,Storage,S3,Missing Encryption,Vulnerable
+T03,Network,Security Group,Unrestricted SSH Ingress,Vulnerable
+T04,Network,Security Group,Unrestricted Ingress,Vulnerable
+T05,IAM,IAM Policy,Excessive Permissions,Vulnerable
+T06,Storage,EBS Volume,Missing Encryption,Vulnerable
+T07,Database,RDS,Public Accessibility,Vulnerable
+T08,Logging,S3,Missing Access Logging,Vulnerable
+T09,Access Control,IAM,Overly Broad Policy,Vulnerable
+T10,Secure Configuration,AWS Resource,Secure Configuration,Secure

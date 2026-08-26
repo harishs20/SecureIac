@@ -1,0 +1,8 @@
+Test_ID,Resource,Intended_Vulnerability,Primary_Checkov_Policy,Checkov_Result,Additional_Checkov_Findings
+T01,S3 Bucket,Missing Public Access Block,CKV2_AWS_6,FAIL,"CKV2_AWS_62; CKV2_AWS_61; CKV_AWS_18; CKV_AWS_144; CKV_AWS_145"
+T02,S3 Bucket,Missing Encryption,CKV_AWS_145,FAIL,"CKV2_AWS_62; CKV2_AWS_6; CKV2_AWS_61; CKV_AWS_18; CKV_AWS_144"
+T03,Security Group,Unrestricted SSH ingress from 0.0.0.0/0,CKV_AWS_24,FAIL,"CKV2_AWS_5"
+T04,Security Group,Unrestricted HTTP ingress from 0.0.0.0/0,CKV_AWS_260,FAIL,"CKV2_AWS_5"
+T05,IAM Role Policy,Excessive IAM permissions using wildcard Action and Resource,CKV_AWS_62,FAIL,"CKV_AWS_287; CKV_AWS_288; CKV_AWS_289; CKV_AWS_286; CKV_AWS_63; CKV_AWS_355; CKV_AWS_290; CKV2_AWS_40"
+T06,EBS Volume,Missing EBS encryption,CKV_AWS_3,FAIL,"CKV_AWS_189"
+T07,RDS,Publicly accessible RDS instance,CKV_AWS_17,FAIL,"CKV_AWS_129; CKV_AWS_226; CKV_AWS_16; CKV_AWS_118; CKV_AWS_161; CKV_AWS_293; CKV_AWS_157; CKV2_AWS_60"
