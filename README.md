@@ -4,7 +4,7 @@
 
 SecureIaC is a proposed hybrid security analysis system for detecting security misconfigurations in Infrastructure-as-Code (IaC).
 
-The project combines **deterministic rule-based security analysis** with **LLM-based contextual reasoning**, **security-policy grounding**, **clause-level evidence citation**, and **automated verification and rejection of unsupported findings**.
+The project is designed to combine **deterministic rule-based security analysis** with **LLM-based contextual reasoning**, **security-policy grounding**, **clause-level evidence citation**, and **automated verification and rejection of unsupported findings**.
 
 ---
 
@@ -12,7 +12,7 @@ The project combines **deterministic rule-based security analysis** with **LLM-b
 
 Infrastructure-as-Code allows cloud infrastructure to be defined and managed through machine-readable configuration files such as Terraform configurations. While IaC improves reproducibility and automation, security misconfigurations in these files can propagate across environments through automated deployment pipelines.
 
-Traditional IaC security scanners such as Checkov and tfsec are effective at detecting known, pattern-based misconfigurations. However, rule-based approaches have limitations when security issues depend on configuration context or require semantic reasoning.
+Traditional IaC security scanners such as Checkov are effective at detecting known, pattern-based misconfigurations. However, rule-based approaches have limitations when security issues depend on configuration context or require semantic reasoning.
 
 LLM-based approaches can provide contextual reasoning beyond fixed security rules, but they may produce hallucinated or unsupported security findings.
 
@@ -94,7 +94,7 @@ The planned SecureIaC pipeline consists of the following stages:
                 Finding       Finding
 ```
 
-The complete architecture is a planned system and is being developed incrementally.
+The architecture above represents the proposed final SecureIaC system. The Review 1 implementation currently establishes the research foundation and rule-based baseline; the LLM, grounding, citation, and verification components remain future implementation work.
 
 ---
 
@@ -121,11 +121,15 @@ The main objectives of SecureIaC are:
 
 ### Security Analysis
 
-* Checkov
+* Checkov 3.3.15
+
+### Cloud Simulation
+
+* CloudSim
 
 ### Programming / Development
 
-* Python
+* Python 3.13.3
 * Terraform
 * Git
 
@@ -143,20 +147,31 @@ The main objectives of SecureIaC are:
 
 ---
 
-## 7. Current Project Status
+## 7. Review 1 Status
 
-### Review 1
+The substantive Review 1 work has been completed. The remaining Review 1 deliverable is the presentation/PPT.
+
+### Completed
 
 * [x] Literature review
 * [x] Research gap identification
 * [x] Problem statement
 * [x] Research hypothesis
-* [x] Terraform environment setup
-* [x] Checkov installation and baseline environment setup
-* [x] Initial Terraform testbed
-* [x] Successful Checkov scan
-* [ ] Final Terraform test-case dataset
-* [ ] Baseline evaluation and metrics
+* [x] Terraform development environment setup
+* [x] Git/GitHub repository setup
+* [x] Checkov installation and baseline setup
+* [x] Terraform security testbed
+* [x] Secure and vulnerable Terraform test cases
+* [x] Ground-truth mapping for the baseline test cases
+* [x] Checkov baseline scan
+* [x] Raw Checkov TXT output
+* [x] Raw Checkov JSON output
+* [x] Baseline results documentation
+* [x] CloudSim component completed by the teammate
+* [x] README updated for the Review 1 implementation
+
+### Future SecureIaC Implementation
+
 * [ ] LLM-based analysis
 * [ ] Security-policy document
 * [ ] Policy grounding
@@ -169,84 +184,109 @@ The main objectives of SecureIaC are:
 
 ## 8. Current Testbed
 
-The initial testbed uses Terraform configurations that can be scanned using Checkov.
+The current Terraform baseline contains **9 intentionally vulnerable test cases (T01–T09)** and **1 secure test case (S01)** used to establish the initial rule-based baseline.
 
-Current repository structure:
+The vulnerable cases cover multiple IaC security categories, including:
 
-```text
-SecureIaC/
-│
-├── .gitignore
-├── README.md
-├── .venv/
-│
-└── testbed/
-    └── main.tf
-```
+* S3 security
+* Network/security-group configuration
+* IAM permissions
+* EBS configuration
+* RDS configuration
+* Logging and access-control related issues
 
-The `.venv` directory is a local Python virtual environment and is not intended to be committed to the repository.
+The secure case provides a positive control for the baseline environment.
 
-The testbed will be expanded with secure and intentionally vulnerable Terraform configurations for controlled evaluation.
+The testbed is designed so that the expected security state of each test case is known in advance through the ground-truth mapping.
 
 ---
 
-## 9. Initial Baseline
+## 9. Checkov Baseline
 
-Checkov is being used as the initial rule-based baseline because the reviewed literature identifies rule-based IaC security scanners as effective for known, pattern-based misconfigurations.
+Checkov is the current deterministic rule-based baseline for SecureIaC.
 
-The current environment successfully runs Checkov against Terraform configurations.
-
-Example command:
-
-```bash
-checkov -d ./testbed
-```
-
-The initial test produced:
+The verified environment uses:
 
 ```text
-Passed checks: 4
-Failed checks: 7
-Skipped checks: 0
+Checkov: 3.3.15
+Terraform: 1.15.9
+Python: 3.13.3
 ```
 
-The scan identified several S3-related security checks, including:
+The baseline was executed against the labelled Terraform testbed and produced raw results in both TXT and JSON formats.
 
-* Missing S3 public access block
-* Missing access logging
-* Missing KMS encryption configuration
-* Missing versioning
-* Missing lifecycle configuration
-* Missing cross-region replication
-* Missing event notifications
+The baseline scan produced:
 
-These initial results demonstrate that the Terraform testbed can be successfully analyzed by the rule-based baseline.
+```text
+Failed findings: 44
+Target vulnerable cases detected: 9 / 9
+Target detection coverage: 100%
+```
 
-Formal baseline metrics will be calculated after the labelled test-case dataset is finalized.
+The **9/9 (100%) figure refers to detection of the nine target vulnerable test cases**. It should not be interpreted as an overall accuracy, precision, or recall score for the complete Checkov output.
+
+The 44 failed findings represent individual Checkov check failures across the testbed. Multiple findings may be reported for the same vulnerable test case.
+
+The baseline establishes the initial rule-based reference point against which later LLM-based and SecureIaC approaches can be evaluated.
 
 ---
 
-## 10. Planned Evaluation
+## 10. Baseline Ground Truth
 
-The evaluation will use labelled Terraform configurations containing known secure and vulnerable cases.
+A ground-truth mapping was created for the Terraform testbed so that the expected security state of each test case is known before comparing analysis approaches.
+
+The baseline currently contains:
+
+| Category | Test Cases | Expected State |
+| --- | --- | --- |
+| Vulnerable IaC | T01–T09 | Vulnerable |
+| Secure IaC | S01 | Secure |
+
+The vulnerable cases cover S3, network, IAM, EBS, RDS, and logging/access-control related security conditions.
+
+The ground truth will be used as the reference for later evaluation of detection quality.
+
+---
+
+## 11. Baseline Outputs
+
+The Checkov baseline includes machine-readable and human-readable outputs.
+
+### TXT Output
+
+The TXT output provides a readable record of the Checkov scan and its failed checks.
+
+### JSON Output
+
+The JSON output provides structured Checkov findings that can be reused by later evaluation scripts or analysis components.
+
+These outputs provide the initial evidence required to compare deterministic rule-based detection with future LLM-based approaches.
+
+---
+
+## 12. Planned Evaluation
+
+The final evaluation will use labelled Terraform configurations containing known secure and vulnerable cases.
 
 Each test case will have a documented ground truth.
 
 Example:
 
-| Test Case | Configuration              | Expected Result | Vulnerability        |
-| --------- | -------------------------- | --------------- | -------------------- |
-| T01       | Public S3 configuration    | Vulnerable      | Public access        |
-| T02       | Encrypted S3 configuration | Secure          | None                 |
-| T03       | Open security group        | Vulnerable      | Unrestricted ingress |
-| T04       | Restricted security group  | Secure          | None                 |
-| T05       | Excessive IAM permissions  | Vulnerable      | Excessive privileges |
+| Test Case | Configuration | Expected Result | Vulnerability |
+| --- | --- | --- | --- |
+| T01 | Public S3 configuration | Vulnerable | Public access |
+| T02 | Encrypted S3 configuration | Vulnerable / Secure according to test definition | S3 security configuration |
+| T03 | Open security group | Vulnerable | Unrestricted ingress |
+| T04 | Restricted security group | Secure | None |
+| T05 | Excessive IAM permissions | Vulnerable | Excessive privileges |
 
-The final dataset will be expanded to cover multiple IaC security categories.
+> The example table is illustrative. The authoritative test-case definitions and ground truth are maintained in the project testbed and baseline results.
+
+The final dataset will be expanded or refined as the SecureIaC implementation progresses.
 
 ---
 
-## 11. Evaluation Metrics
+## 13. Evaluation Metrics
 
 The project will consider metrics such as:
 
@@ -260,11 +300,13 @@ The project will consider metrics such as:
 
 The primary research focus will be the reduction of unsupported security findings when policy grounding and evidence verification are introduced.
 
+The current baseline result of **9/9 target vulnerable cases detected** is a baseline detection result, not the final research evaluation.
+
 ---
 
-## 12. Planned Baseline Comparisons
+## 14. Planned Baseline Comparisons
 
-The project is expected to compare multiple configurations of the analysis pipeline:
+The project is expected to compare multiple configurations of the analysis pipeline.
 
 ### Baseline 1 — Rule-Based
 
@@ -316,7 +358,7 @@ The exact experimental design and final comparison methodology will be finalized
 
 ---
 
-## 13. Research Gap
+## 15. Research Gap
 
 The literature review identified that existing research separately demonstrates:
 
@@ -332,11 +374,28 @@ SecureIaC is designed to investigate this gap.
 
 ---
 
-## 14. Repository Structure
+## 16. Repository Structure
 
-The repository will evolve as the project progresses.
+The current repository contains the Review 1 baseline work. It will evolve as the SecureIaC implementation progresses.
 
-Planned structure:
+Current/established structure:
+
+```text
+SecureIaC/
+│
+├── testbed/
+│   └── Terraform test cases
+│
+├── baseline/
+│   ├── Checkov results
+│   └── Ground-truth information
+│
+├── .gitignore
+├── README.md
+└── project files
+```
+
+The final implementation is expected to evolve toward:
 
 ```text
 SecureIaC/
@@ -366,29 +425,24 @@ SecureIaC/
 
 ---
 
-## 15. Development Environment
+## 17. Development Environment
 
-The current development environment uses:
+The verified development environment is:
 
 ```text
 Operating System: Windows
-IaC: Terraform
-Security Scanner: Checkov
-Programming Language: Python
+IaC: Terraform 1.15.9
+Security Scanner: Checkov 3.3.15
+Programming Language: Python 3.13.3
+Cloud Simulation: CloudSim
 Version Control: Git / GitHub
 ```
 
-Current verified versions:
-
-```text
-Terraform: 1.15.9
-Checkov: 3.3.15
-Python: 3.13.3
-```
+A local Python virtual environment is used for development and should not be committed to the repository.
 
 ---
 
-## 16. Running the Current Testbed
+## 18. Running the Current Checkov Baseline
 
 Activate the project virtual environment:
 
@@ -396,7 +450,7 @@ Activate the project virtual environment:
 .\.venv\Scripts\Activate.ps1
 ```
 
-Navigate to the testbed:
+Navigate to the Terraform testbed:
 
 ```powershell
 cd testbed
@@ -410,41 +464,62 @@ checkov -d .
 
 The command scans the Terraform configurations in the testbed and reports the security checks that pass or fail.
 
+The raw baseline results should be retained in the project's baseline/results area for reproducibility.
+
 ---
 
-## 17. Development Roadmap
+## 19. Cloud Simulation
 
-### Phase 1 — Research and Baseline
+CloudSim has been completed as part of the project work by the teammate.
+
+It forms part of the broader project setup and complements the Terraform/Checkov security-analysis work.
+
+The current README records CloudSim as completed for Review 1; the detailed CloudSim implementation and configuration should be maintained in the corresponding project files.
+
+---
+
+## 20. Development Roadmap
+
+### Phase 1 — Research and Baseline — Completed for Review 1
 
 * Literature review
 * Research gap identification
 * Problem statement and hypothesis
-* Terraform testbed
+* Terraform development environment
+* Git/GitHub repository setup
+* Terraform security testbed
+* Secure and vulnerable test cases
+* Ground-truth mapping
 * Checkov baseline
-* Ground-truth dataset
-* Baseline metrics
+* Raw TXT and JSON baseline outputs
+* Baseline result documentation
+* CloudSim component
 
-### Phase 2 — LLM Analysis
+### Phase 2 — Review 1 Presentation
+
+* Review 1 PPT / presentation
+
+### Phase 3 — LLM Analysis
 
 * LLM integration
 * Terraform security-analysis prompts
 * Ungrounded LLM baseline
 * Evaluation of LLM findings
 
-### Phase 3 — Policy Grounding
+### Phase 4 — Policy Grounding
 
 * Security-policy document
 * Policy retrieval / grounding
 * Clause-level citation
 * Grounded LLM evaluation
 
-### Phase 4 — Evidence Verification
+### Phase 5 — Evidence Verification
 
 * Evidence verification mechanism
-* Support checking
+* Evidence support checking
 * Automatic rejection of unsupported findings
 
-### Phase 5 — Final Evaluation
+### Phase 6 — Final Evaluation
 
 * Compare all baselines
 * Measure precision, recall and F1
@@ -454,7 +529,7 @@ The command scans the Terraform configurations in the testbed and reports the se
 
 ---
 
-## 18. Project Team
+## 21. Project Team
 
 **Team Members**
 
@@ -463,8 +538,23 @@ The command scans the Terraform configurations in the testbed and reports the se
 
 ---
 
-## 19. Note on Project Status
+## 22. Current Project Status
 
-SecureIaC is currently under development. Components marked as planned or incomplete in this README should not be interpreted as completed functionality.
+SecureIaC has completed the substantive technical and research work required for Review 1, with the **Review 1 PPT/presentation remaining as the main outstanding deliverable**.
 
-The repository will be updated as implementation, experimentation, and evaluation progress.
+The completed work currently establishes:
+
+1. The research motivation and gap.
+2. The SecureIaC research hypothesis.
+3. The Terraform-based IaC testbed.
+4. A labelled set of 9 vulnerable test cases and 1 secure test case.
+5. Ground-truth mapping for the baseline.
+6. A reproducible Checkov 3.3.15 rule-based baseline.
+7. Raw TXT and JSON Checkov outputs.
+8. A baseline result showing detection of all 9 target vulnerable cases.
+9. CloudSim work completed.
+10. Repository and documentation updates.
+
+The LLM reasoning, policy grounding, clause-level citation, evidence verification, unsupported-finding rejection, and final comparative evaluation remain the main implementation stages after Review 1.
+
+> **Important:** The current baseline results are preliminary project results and should not be presented as the final SecureIaC evaluation or as proof of the research hypothesis. The 20% improvement remains the research target to be tested experimentally.
