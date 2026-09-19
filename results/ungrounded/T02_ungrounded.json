@@ -1,0 +1,12 @@
+{
+  "test_id": "T02",
+  "findings": [
+    {
+      "finding": "S3 bucket lacks server-side encryption configuration",
+      "resource": "aws_s3_bucket.unencrypted_bucket",
+      "reason": "The bucket does not define a server_side_encryption_configuration block, leaving objects stored in the bucket unencrypted at rest, which can expose sensitive data.",
+      "evidence": "resource \"aws_s3_bucket\" \"unencrypted_bucket\" { ... } // No server_side_encryption_configuration defined",
+      "confidence": 0.92
+    }
+  ]
+}

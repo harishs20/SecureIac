@@ -1,0 +1,20 @@
+{
+  "test_id": "C02",
+  "source_file": "C02_grounded.json",
+  "total_findings": 1,
+  "accepted_findings": 1,
+  "rejected_findings": 0,
+  "findings": [
+    {
+      "finding": "RDS instance is publicly accessible in a non\u2011production environment",
+      "resource": "aws_db_instance.app_db",
+      "reason": "The configuration sets `publicly_accessible = local.allow_public_access`, where `local.allow_public_access` evaluates to true for the default `development` environment, making the database reachable from the internet despite the policy that RDS instances should not be publicly accessible unless explicitly required.",
+      "policy_id": "POL-RDS-001",
+      "clause_id": "POL-RDS-001-C1",
+      "evidence": "variable \"environment\" { default = \"development\" }\nlocals { allow_public_access = var.environment != \"production\" }\nresource \"aws_db_instance\" \"app_db\" { publicly_accessible = local.allow_public_access }",
+      "confidence": 1.0,
+      "decision": "ACCEPT",
+      "verification_reason": "Policy rule, cited clause, test-case mapping, finding-policy consistency, and Terraform evidence are all consistent."
+    }
+  ]
+}

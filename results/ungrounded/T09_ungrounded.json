@@ -1,0 +1,12 @@
+{
+  "test_id": "T09",
+  "findings": [
+    {
+      "finding": "Overly permissive IAM policy allowing S3 bucket deletion on all resources",
+      "resource": "aws_iam_policy.broad_policy",
+      "reason": "The policy grants the Action \"s3:DeleteBucket\" with Effect \"Allow\" on a wildcard Resource \"*\", which enables deletion of any S3 bucket in the account, violating the principle of least privilege.",
+      "evidence": "Action = \"s3:DeleteBucket\"\\nResource = \"*\"\\nEffect = \"Allow\"",
+      "confidence": 0.95
+    }
+  ]
+}

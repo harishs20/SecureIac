@@ -1,0 +1,12 @@
+{
+  "test_id": "T04",
+  "findings": [
+    {
+      "finding": "Unrestricted inbound HTTP access from 0.0.0.0/0",
+      "resource": "aws_security_group.open_http",
+      "reason": "The security group allows inbound TCP port 80 from any IP address, which violates the policy requiring HTTP ingress to be restricted to specific source ranges unless public access is explicitly required.",
+      "evidence": "ingress { from_port = 80, to_port = 80, protocol = \"tcp\", cidr_blocks = [\"0.0.0.0/0\"] }",
+      "confidence": 1.0
+    }
+  ]
+}

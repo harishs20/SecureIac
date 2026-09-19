@@ -1,0 +1,19 @@
+{
+  "test_id": "T07",
+  "findings": [
+    {
+      "finding": "Database instance is publicly accessible",
+      "resource": "aws_db_instance.public_database",
+      "reason": "The RDS instance is configured with publicly_accessible = true, allowing it to be reachable from the internet and increasing the attack surface.",
+      "evidence": "publicly_accessible  = true",
+      "confidence": 0.96
+    },
+    {
+      "finding": "Final snapshot is skipped on deletion",
+      "resource": "aws_db_instance.public_database",
+      "reason": "skip_final_snapshot = true prevents creation of a final snapshot when the instance is deleted, which can lead to loss of data and hinder forensic analysis after a security incident.",
+      "evidence": "skip_final_snapshot  = true",
+      "confidence": 0.85
+    }
+  ]
+}

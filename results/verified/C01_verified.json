@@ -1,0 +1,20 @@
+{
+  "test_id": "C01",
+  "source_file": "C01_grounded.json",
+  "total_findings": 1,
+  "accepted_findings": 1,
+  "rejected_findings": 0,
+  "findings": [
+    {
+      "finding": "Unrestricted inbound SSH access from 0.0.0.0/0",
+      "resource": "aws_security_group.web",
+      "reason": "Security group allows SSH (TCP port 22) from any IPv4 address, violating the restricted SSH ingress requirement.",
+      "policy_id": "POL-NET-001",
+      "clause_id": "POL-NET-001-C1",
+      "evidence": "ingress { from_port = 22, to_port = 22, protocol = \"tcp\", cidr_blocks = [\"0.0.0.0/0\"] }",
+      "confidence": 1.0,
+      "decision": "ACCEPT",
+      "verification_reason": "Policy rule, cited clause, test-case mapping, finding-policy consistency, and Terraform evidence are all consistent."
+    }
+  ]
+}

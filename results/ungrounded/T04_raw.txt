@@ -1,0 +1,12 @@
+{
+  "test_id": "T04",
+  "findings": [
+    {
+      "finding": "Unrestricted inbound HTTP access from the internet",
+      "resource": "aws_security_group.open_http",
+      "reason": "The security group allows inbound TCP traffic on port 80 from 0.0.0.0/0, exposing the service to any external source.",
+      "evidence": "ingress { description = \"Unrestricted HTTP\" from_port = 80 to_port = 80 protocol = \"tcp\" cidr_blocks = [\"0.0.0.0/0\"] }",
+      "confidence": 0.95
+    }
+  ]
+}

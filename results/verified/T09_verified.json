@@ -6,13 +6,13 @@
   "rejected_findings": 0,
   "findings": [
     {
-      "finding": "IAM policy uses wildcard resource",
+      "finding": "IAM policy uses unrestricted Resource wildcard",
       "resource": "aws_iam_policy.broad_policy",
-      "reason": "The policy statement sets Resource to \"*\", which violates the requirement to scope resources to the minimum necessary set.",
+      "reason": "The policy statement scopes Resource to \"*\" instead of specific ARNs, violating the IAM Resource Scope requirement for least\u2011privilege access.",
       "policy_id": "POL-IAM-002",
       "clause_id": "POL-IAM-002-C1",
-      "evidence": "Resource = \"*\" in the IAM policy definition",
-      "confidence": 0.0,
+      "evidence": "Resource = \"*\" in the JSON\u2011encoded policy statement",
+      "confidence": 1.0,
       "decision": "ACCEPT",
       "verification_reason": "Policy rule, cited clause, test-case mapping, finding-policy consistency, and Terraform evidence are all consistent."
     }

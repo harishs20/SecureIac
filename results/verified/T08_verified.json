@@ -8,10 +8,10 @@
     {
       "finding": "S3 bucket does not have server access logging enabled",
       "resource": "aws_s3_bucket.no_logging_bucket",
-      "reason": "Policy POL-S3-003 requires S3 buckets to have server access logging configured, but the Terraform configuration lacks a logging block for the bucket.",
+      "reason": "The bucket lacks a 'logging' configuration, which is required by policy POL-S3-003 to enable server access logging for auditability.",
       "policy_id": "POL-S3-003",
       "clause_id": "POL-S3-003-C1",
-      "evidence": "resource \"aws_s3_bucket\" \"no_logging_bucket\" { ... } // no logging { ... } block defined",
+      "evidence": "Missing 'logging' block in the aws_s3_bucket resource definition",
       "confidence": 1.0,
       "decision": "ACCEPT",
       "verification_reason": "Policy rule, cited clause, test-case mapping, finding-policy consistency, and Terraform evidence are all consistent."

@@ -1,0 +1,12 @@
+{
+  "test_id": "T03",
+  "findings": [
+    {
+      "finding": "Unrestricted SSH ingress from any IP address",
+      "resource": "aws_security_group.open_ssh",
+      "reason": "The security group permits inbound TCP traffic on port 22 from 0.0.0.0/0, exposing SSH to the entire internet.",
+      "evidence": "ingress {\n    description = \"Unrestricted SSH\"\n    from_port   = 22\n    to_port     = 22\n    protocol    = \"tcp\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }",
+      "confidence": 0.95
+    }
+  ]
+}

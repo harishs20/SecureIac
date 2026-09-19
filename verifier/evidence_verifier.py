@@ -66,6 +66,7 @@ def load_terraform_for_test_case(test_id):
 
     vulnerable_dir = TESTBED_DIR / "vulnerable"
     secure_dir = TESTBED_DIR / "secure"
+    contextual_dir = TESTBED_DIR / "contextual"
 
     # Search vulnerable cases
     for terraform_file in vulnerable_dir.glob(
@@ -88,6 +89,29 @@ def load_terraform_for_test_case(test_id):
             encoding="utf-8"
         ) as file:
             return file.read()
+
+    # Search contextual cases
+    contextual_case_dir = contextual_dir / test_id
+
+    if contextual_case_dir.exists():
+
+        terraform_parts = []
+
+        for terraform_file in sorted(
+            contextual_case_dir.glob("*.tf")
+        ):
+            with open(
+                terraform_file,
+                "r",
+                encoding="utf-8"
+            ) as file:
+                terraform_parts.append(
+                    f"# FILE: {terraform_file.name}\n\n"
+                    f"{file.read()}"
+                )
+
+        if terraform_parts:
+            return "\n\n".join(terraform_parts)
 
     return None
 
@@ -421,7 +445,7 @@ def verify_finding_policy_match(
                 "RDS public accessibility issue."
             )
         }
-
+        
     # --------------------------------------------------
     # T08 - S3 Access Logging
     # --------------------------------------------------
@@ -614,8 +638,8 @@ def verify_terraform_evidence(
     # --------------------------------------------------
 
     if (
-        test_id == "T03"
-        and policy_id == "POL-NET-001"
+        test_id in ["T03", "C01"]
+        and policy_id == "POL-NET-001"  
     ):
 
         unrestricted_ssh = (
@@ -775,7 +799,52 @@ def verify_terraform_evidence(
                 "the RDS instance publicly accessible."
             )
         }
+        # --------------------------------------------------
+    # C02 - RDS Public Accessibility via variable/local
+    # --------------------------------------------------
 
+    if (
+        test_id == "C02"
+        and policy_id == "POL-RDS-001"
+    ):
+
+        has_development_environment = (
+            'default = "development"'
+            in terraform_normalized
+        )
+
+        has_environment_condition = (
+            'var.environment != "production"'
+            in terraform_normalized
+        )
+
+        uses_public_access_local = (
+            "publicly_accessible = local.allow_public_access"
+            in terraform_normalized
+        )
+
+        if (
+            has_development_environment
+            and has_environment_condition
+            and uses_public_access_local
+        ):
+            return {
+                "supported": True,
+                "reason": (
+                    "Terraform sets the environment to development, "
+                    "defines allow_public_access as true when the "
+                    "environment is not production, and assigns that "
+                    "local value to publicly_accessible."
+                )
+            }
+
+        return {
+            "supported": False,
+            "reason": (
+                "Terraform does not provide sufficient evidence that "
+                "the RDS instance evaluates to publicly accessible."
+            )
+        }
     # --------------------------------------------------
     # T08 - S3 Access Logging
     # --------------------------------------------------

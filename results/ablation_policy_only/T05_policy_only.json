@@ -1,0 +1,12 @@
+{
+  "test_id": "T05",
+  "findings": [
+    {
+      "finding": "IAM policy grants unrestricted permissions",
+      "resource": "aws_iam_role_policy.excessive_policy",
+      "reason": "The policy uses Action \"*\" and Resource \"*\", violating the least privilege requirement which mandates restricting actions and resources to only those necessary.",
+      "evidence": "\"Action\": \"*\", \"Resource\": \"*\" in the policy JSON of aws_iam_role_policy.excessive_policy",
+      "confidence": 1.0
+    }
+  ]
+}

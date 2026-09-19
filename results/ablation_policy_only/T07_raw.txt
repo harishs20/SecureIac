@@ -1,0 +1,12 @@
+{
+  "test_id": "T07",
+  "findings": [
+    {
+      "finding": "RDS instance is publicly accessible",
+      "resource": "aws_db_instance.public_database",
+      "reason": "The configuration sets publicly_accessible = true, which violates the policy requiring RDS instances not to be publicly accessible from the internet unless explicitly required.",
+      "evidence": "publicly_accessible = true",
+      "confidence": 1.0
+    }
+  ]
+}

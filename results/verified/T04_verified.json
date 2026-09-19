@@ -8,7 +8,7 @@
     {
       "finding": "Unrestricted inbound HTTP access from 0.0.0.0/0",
       "resource": "aws_security_group.open_http",
-      "reason": "The security group allows ingress on TCP port 80 from any IP address, which violates the requirement to restrict HTTP ingress unless public access is explicitly required.",
+      "reason": "The security group allows inbound traffic on TCP port 80 from any IPv4 address, violating the policy that HTTP ingress must be restricted to required source addresses.",
       "policy_id": "POL-NET-002",
       "clause_id": "POL-NET-002-C1",
       "evidence": "ingress { from_port = 80, to_port = 80, protocol = \"tcp\", cidr_blocks = [\"0.0.0.0/0\"] }",

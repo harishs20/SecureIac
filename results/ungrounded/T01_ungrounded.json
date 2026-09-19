@@ -1,0 +1,12 @@
+{
+  "test_id": "T01",
+  "findings": [
+    {
+      "finding": "Missing public access block configuration on S3 bucket",
+      "resource": "aws_s3_bucket.public_bucket",
+      "reason": "The bucket definition does not include a public_access_block block or restrictive ACL/policy, which means the bucket could be unintentionally exposed to public access if other policies permit it.",
+      "evidence": "resource \"aws_s3_bucket\" \"public_bucket\" { ... } (no public_access_block block or acl attribute present)",
+      "confidence": 0.75
+    }
+  ]
+}

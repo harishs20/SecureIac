@@ -39,6 +39,7 @@ policy_rules:
       on TCP port 22 from 0.0.0.0/0.
     target_test_cases:
       - T03
+      - C01
     evidence:
       source: "AWS Security Hub CSPM Controls for Amazon EC2"
       source_url: "https://docs.aws.amazon.com/securityhub/latest/userguide/ec2-controls.html"
@@ -101,6 +102,7 @@ policy_rules:
       the internet unless public access is explicitly required.
     target_test_cases:
       - T07
+      - C02
     evidence:
       source: "AWS RDS Security Documentation"
       source_url: "https://docs.aws.amazon.com/AmazonRDS/latest/gettingstartedguide/security-public-private.html"

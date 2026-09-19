@@ -1,0 +1,12 @@
+{
+  "test_id": "T08",
+  "findings": [
+    {
+      "finding": "S3 bucket lacks server access logging configuration",
+      "resource": "aws_s3_bucket.no_logging_bucket",
+      "reason": "Without server access logging, actions on the bucket are not recorded, making it harder to detect unauthorized access or changes.",
+      "evidence": "The bucket resource definition does not include a `logging` block; only `versioning` and `server_side_encryption_configuration` are present.",
+      "confidence": 0.9
+    }
+  ]
+}

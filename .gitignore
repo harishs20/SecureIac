@@ -36,3 +36,5 @@ desktop.ini
 dist/
 build/
 cloudsim/target/
+.venv/
+.env

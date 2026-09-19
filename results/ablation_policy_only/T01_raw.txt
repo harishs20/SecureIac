@@ -1,0 +1,12 @@
+{
+  "test_id": "T01",
+  "findings": [
+    {
+      "finding": "Missing S3 Block Public Access configuration",
+      "resource": "aws_s3_bucket.public_bucket",
+      "reason": "The bucket does not have any Block Public Access controls defined, which violates the requirement that S3 buckets must have Block Public Access configured to prevent unintended public access.",
+      "evidence": "resource \"aws_s3_bucket\" \"public_bucket\" { ... } // No block_public_access settings or associated aws_s3_bucket_public_access_block resource",
+      "confidence": 0.95
+    }
+  ]
+}

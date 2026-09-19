@@ -1,0 +1,12 @@
+{
+  "test_id": "T06",
+  "findings": [
+    {
+      "finding": "EBS volume is unencrypted",
+      "resource": "aws_ebs_volume.unencrypted_volume",
+      "reason": "The volume is created with encryption disabled, leaving data at rest unprotected and potentially accessible to unauthorized parties.",
+      "evidence": "encrypted = false",
+      "confidence": 1.0
+    }
+  ]
+}
