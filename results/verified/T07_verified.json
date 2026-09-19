@@ -1,0 +1,20 @@
+{
+  "test_id": "T07",
+  "source_file": "T07_grounded.json",
+  "total_findings": 1,
+  "accepted_findings": 1,
+  "rejected_findings": 0,
+  "findings": [
+    {
+      "finding": "RDS instance is publicly accessible",
+      "resource": "aws_db_instance.public_database",
+      "reason": "The configuration sets publicly_accessible = true, violating the requirement that RDS instances should not be publicly accessible unless explicitly required.",
+      "policy_id": "POL-RDS-001",
+      "clause_id": "POL-RDS-001-C1",
+      "evidence": "publicly_accessible  = true",
+      "confidence": 0.0,
+      "decision": "ACCEPT",
+      "verification_reason": "Policy rule, cited clause, test-case mapping, finding-policy consistency, and Terraform evidence are all consistent."
+    }
+  ]
+}

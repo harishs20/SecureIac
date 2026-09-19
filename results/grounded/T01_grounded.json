@@ -1,0 +1,14 @@
+{
+  "test_id": "T01",
+  "findings": [
+    {
+      "finding": "S3 bucket does not have Block Public Access controls configured",
+      "resource": "aws_s3_bucket.public_bucket",
+      "reason": "The bucket definition lacks any block_public_access configuration, which is required to prevent unintended public access.",
+      "policy_id": "POL-S3-001",
+      "clause_id": "POL-S3-001-C1",
+      "evidence": "Missing block_public_access block in the Terraform resource definition",
+      "confidence": 1.0
+    }
+  ]
+}

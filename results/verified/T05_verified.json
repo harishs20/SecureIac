@@ -1,0 +1,20 @@
+{
+  "test_id": "T05",
+  "source_file": "T05_grounded.json",
+  "total_findings": 1,
+  "accepted_findings": 1,
+  "rejected_findings": 0,
+  "findings": [
+    {
+      "finding": "IAM policy grants unrestricted permissions",
+      "resource": "aws_iam_role_policy.excessive_policy",
+      "reason": "The policy statement uses Action \"*\" and Resource \"*\", which violates the least privilege requirement.",
+      "policy_id": "POL-IAM-001",
+      "clause_id": "POL-IAM-001-C1",
+      "evidence": "policy = jsonencode({\n  Version = \"2012-10-17\",\n  Statement = [\n    {\n      Effect   = \"Allow\",\n      Action   = \"*\",\n      Resource = \"*\"\n    }\n  ]\n})",
+      "confidence": 1.0,
+      "decision": "ACCEPT",
+      "verification_reason": "Policy rule, cited clause, test-case mapping, finding-policy consistency, and Terraform evidence are all consistent."
+    }
+  ]
+}

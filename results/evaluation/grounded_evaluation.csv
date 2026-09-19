@@ -1,0 +1,11 @@
+test_id,expected_result,ground_truth,generated_findings,accepted_findings,rejected_findings,classification,TP,FP,FN,unsupported_findings
+S01,Secure-for-target-property,Standard EBS Encryption Enabled,0,0,0,TN,0,0,0,0
+T01,Vulnerable,Missing Public Access Block,1,1,0,TP,1,0,0,0
+T02,Vulnerable,Missing Encryption,1,1,0,TP,1,0,0,0
+T03,Vulnerable,Unrestricted SSH Ingress,1,1,0,TP,1,0,0,0
+T04,Vulnerable,Unrestricted Ingress,1,1,0,TP,1,0,0,0
+T05,Vulnerable,Excessive Permissions,1,1,0,TP,1,0,0,0
+T06,Vulnerable,Missing Encryption,1,1,0,TP,1,0,0,0
+T07,Vulnerable,Public Accessibility,1,1,0,TP,1,0,0,0
+T08,Vulnerable,Missing Access Logging,1,1,0,TP,1,0,0,0
+T09,Vulnerable,Overly Broad Policy,1,1,0,TP,1,0,0,0

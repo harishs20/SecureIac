@@ -1,0 +1,20 @@
+{
+  "test_id": "T09",
+  "source_file": "T09_grounded.json",
+  "total_findings": 1,
+  "accepted_findings": 1,
+  "rejected_findings": 0,
+  "findings": [
+    {
+      "finding": "IAM policy uses wildcard resource",
+      "resource": "aws_iam_policy.broad_policy",
+      "reason": "The policy statement sets Resource to \"*\", which violates the requirement to scope resources to the minimum necessary set.",
+      "policy_id": "POL-IAM-002",
+      "clause_id": "POL-IAM-002-C1",
+      "evidence": "Resource = \"*\" in the IAM policy definition",
+      "confidence": 0.0,
+      "decision": "ACCEPT",
+      "verification_reason": "Policy rule, cited clause, test-case mapping, finding-policy consistency, and Terraform evidence are all consistent."
+    }
+  ]
+}

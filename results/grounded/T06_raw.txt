@@ -1,0 +1,14 @@
+{
+  "test_id": "T06",
+  "findings": [
+    {
+      "finding": "EBS volume is not encrypted",
+      "resource": "aws_ebs_volume.unencrypted_volume",
+      "reason": "The configuration sets encrypted = false, violating the requirement that EBS volumes must have encryption enabled.",
+      "policy_id": "POL-EBS-001",
+      "clause_id": "POL-EBS-001-C1",
+      "evidence": "encrypted = false",
+      "confidence": 0.0
+    }
+  ]
+}

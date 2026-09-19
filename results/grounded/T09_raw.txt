@@ -1,0 +1,14 @@
+{
+  "test_id": "T09",
+  "findings": [
+    {
+      "finding": "IAM policy uses wildcard resource",
+      "resource": "aws_iam_policy.broad_policy",
+      "reason": "The policy statement sets Resource to \"*\", which violates the requirement to scope resources to the minimum necessary set.",
+      "policy_id": "POL-IAM-002",
+      "clause_id": "POL-IAM-002-C1",
+      "evidence": "Resource = \"*\" in the IAM policy definition",
+      "confidence": 0.0
+    }
+  ]
+}

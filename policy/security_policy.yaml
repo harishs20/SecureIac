@@ -1,0 +1,143 @@
+version: "1.0"
+
+policy_rules:
+
+  - id: POL-S3-001
+    title: S3 Public Access Block
+    requirement: >
+      S3 buckets must have Block Public Access controls configured
+      to prevent unintended public access.
+    target_test_cases:
+      - T01
+    evidence:
+      source: "AWS S3 Security Best Practices"
+      source_url: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html"
+      clause_id: POL-S3-001-C1
+      clause: >
+        Unless public access is explicitly required, S3 buckets should
+        not be publicly accessible and S3 Block Public Access should be used
+        to help block public access.
+
+  - id: POL-S3-002
+    title: S3 Server-Side Encryption
+    requirement: >
+      S3 buckets must use server-side encryption for stored objects.
+    target_test_cases:
+      - T02
+    evidence:
+      source: "AWS S3 Security Best Practices"
+      source_url: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html"
+      clause_id: POL-S3-002-C1
+      clause: >
+        Amazon S3 provides server-side encryption as a security feature
+        for protecting data stored in S3.
+
+  - id: POL-NET-001
+    title: Restricted SSH Ingress
+    requirement: >
+      Security groups must not allow unrestricted inbound SSH access
+      on TCP port 22 from 0.0.0.0/0.
+    target_test_cases:
+      - T03
+    evidence:
+      source: "AWS Security Hub CSPM Controls for Amazon EC2"
+      source_url: "https://docs.aws.amazon.com/securityhub/latest/userguide/ec2-controls.html"
+      clause_id: POL-NET-001-C1
+      clause: >
+        Security groups should not allow unrestricted ingress access
+        to remote server administration ports such as SSH port 22
+        from 0.0.0.0/0.
+
+  - id: POL-NET-002
+    title: Restricted HTTP Ingress
+    requirement: >
+      Security groups should not allow unrestricted inbound HTTP access
+      on TCP port 80 from 0.0.0.0/0 unless public access is explicitly required.
+    target_test_cases:
+      - T04
+    evidence:
+      source: "AWS VPC Security Group Documentation"
+      source_url: "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html"
+      clause_id: POL-NET-002-C1
+      clause: >
+        Security group inbound rules should restrict access to only the
+        required source addresses and ports.
+
+  - id: POL-IAM-001
+    title: IAM Least Privilege
+    requirement: >
+      IAM policies must grant only the permissions required for the
+      intended task and should avoid unrestricted actions such as Action "*"
+      when narrower permissions are possible.
+    target_test_cases:
+      - T05
+    evidence:
+      source: "AWS IAM Best Practices"
+      source_url: "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+      clause_id: POL-IAM-001-C1
+      clause: >
+        AWS recommends granting least privilege by granting only the
+        permissions required to perform a task.
+
+  - id: POL-EBS-001
+    title: EBS Volume Encryption
+    requirement: >
+      EBS volumes must have encryption enabled to protect data stored
+      on the volume.
+    target_test_cases:
+      - T06
+    evidence:
+      source: "AWS EBS Encryption Documentation"
+      source_url: "https://docs.aws.amazon.com/ebs/latest/userguide/how-ebs-encryption-works.html"
+      clause_id: POL-EBS-001-C1
+      clause: >
+        Amazon EBS encryption provides protection for data stored on
+        EBS volumes by encrypting data at rest.
+
+  - id: POL-RDS-001
+    title: RDS Public Accessibility
+    requirement: >
+      RDS database instances should not be publicly accessible from
+      the internet unless public access is explicitly required.
+    target_test_cases:
+      - T07
+    evidence:
+      source: "AWS RDS Security Documentation"
+      source_url: "https://docs.aws.amazon.com/AmazonRDS/latest/gettingstartedguide/security-public-private.html"
+      clause_id: POL-RDS-001-C1
+      clause: >
+        Publicly accessible RDS instances can be reachable from the
+        internet; private connectivity should be used when public access
+        is not required.
+
+  - id: POL-S3-003
+    title: S3 Access Logging
+    requirement: >
+      S3 buckets should have server access logging enabled to maintain
+      records of requests made to the bucket.
+    target_test_cases:
+      - T08
+    evidence:
+      source: "AWS S3 Server Access Logging Documentation"
+      source_url: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html"
+      clause_id: POL-S3-003-C1
+      clause: >
+        S3 server access logging provides detailed records of requests
+        made to a bucket and can support security and access audits.
+
+  - id: POL-IAM-002
+    title: IAM Resource Scope
+    requirement: >
+      IAM policies should scope the Resource element to the smallest
+      set of resources required for the intended operation instead of
+      using Resource "*" when narrower resource identifiers are possible.
+    target_test_cases:
+      - T09
+    evidence:
+      source: "AWS IAM JSON Policy Elements: Resource"
+      source_url: "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html"
+      clause_id: POL-IAM-002-C1
+      clause: >
+        The IAM Resource element identifies the resources to which a
+        policy statement applies, and resource ARNs can be used to
+        identify specific resources instead of broad wildcard scope.

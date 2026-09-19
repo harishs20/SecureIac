@@ -1,0 +1,20 @@
+{
+  "test_id": "T04",
+  "source_file": "T04_grounded.json",
+  "total_findings": 1,
+  "accepted_findings": 1,
+  "rejected_findings": 0,
+  "findings": [
+    {
+      "finding": "Unrestricted inbound HTTP access from 0.0.0.0/0",
+      "resource": "aws_security_group.open_http",
+      "reason": "The security group allows ingress on TCP port 80 from any IP address, which violates the requirement to restrict HTTP ingress unless public access is explicitly required.",
+      "policy_id": "POL-NET-002",
+      "clause_id": "POL-NET-002-C1",
+      "evidence": "ingress { from_port = 80, to_port = 80, protocol = \"tcp\", cidr_blocks = [\"0.0.0.0/0\"] }",
+      "confidence": 1.0,
+      "decision": "ACCEPT",
+      "verification_reason": "Policy rule, cited clause, test-case mapping, finding-policy consistency, and Terraform evidence are all consistent."
+    }
+  ]
+}

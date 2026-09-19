@@ -1,0 +1,20 @@
+{
+  "test_id": "T02",
+  "source_file": "T02_grounded.json",
+  "total_findings": 1,
+  "accepted_findings": 1,
+  "rejected_findings": 0,
+  "findings": [
+    {
+      "finding": "S3 bucket does not have server-side encryption configured",
+      "resource": "aws_s3_bucket.unencrypted_bucket",
+      "reason": "The bucket lacks a server_side_encryption_configuration block, violating the requirement for server-side encryption of stored objects.",
+      "policy_id": "POL-S3-002",
+      "clause_id": "POL-S3-002-C1",
+      "evidence": "resource \"aws_s3_bucket\" \"unencrypted_bucket\" { ... } // No server_side_encryption_configuration defined",
+      "confidence": 1.0,
+      "decision": "ACCEPT",
+      "verification_reason": "Policy rule, cited clause, test-case mapping, finding-policy consistency, and Terraform evidence are all consistent."
+    }
+  ]
+}

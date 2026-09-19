@@ -2,6 +2,7 @@
 .venv/
 venv/
 env/
+.env
 
 # Python cache
 __pycache__/
@@ -19,7 +20,6 @@ crash.*.log
 
 # Checkov / scan output
 checkov-report.*
-results/
 reports/
 
 # IDE / editor files

@@ -1,0 +1,8 @@
+{
+  "test_id": "S01",
+  "source_file": "S01_grounded.json",
+  "total_findings": 0,
+  "accepted_findings": 0,
+  "rejected_findings": 0,
+  "findings": []
+}
