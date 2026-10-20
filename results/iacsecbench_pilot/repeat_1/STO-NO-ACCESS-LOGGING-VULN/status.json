@@ -1,0 +1,8 @@
+{
+  "case_id": "STO-NO-ACCESS-LOGGING-VULN",
+  "status": "success",
+  "validation_errors": [],
+  "model": "openai/gpt-oss-120b",
+  "policy_id": "POL-S3-003",
+  "clause_id": "POL-S3-003-C1"
+}

@@ -1,0 +1,14 @@
+{
+  "test_id": "NET-UNRESTRICTED-INGRESS-VULN",
+  "findings": [
+    {
+      "finding": "Unrestricted inbound SSH access from 0.0.0.0/0",
+      "resource": "aws_security_group.target",
+      "reason": "Security group allows ingress on TCP port 22 from CIDR 0.0.0.0/0, violating POL-NET-001 requirement.",
+      "policy_id": "POL-NET-001",
+      "clause_id": "POL-NET-001-C1",
+      "evidence": "dynamic \"ingress\" { for_each = local.ingress_cidrs ... cidr_blocks = [ingress.value] } with local.ingress_cidrs = [\"0.0.0.0/0\"]",
+      "confidence": 0.0
+    }
+  ]
+}

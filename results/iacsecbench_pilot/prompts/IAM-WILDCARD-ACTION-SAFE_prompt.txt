@@ -1,0 +1,87 @@
+You are a cloud infrastructure security analysis system.
+
+Analyze the supplied Terraform configuration using ONLY
+the supplied security policy.
+
+IMPORTANT RULES:
+
+1. Use ONLY the supplied Terraform configuration and security policy.
+2. Do not use external security rules or assumptions.
+3. Do not invent policy IDs or clause IDs.
+4. Every security finding MUST cite a policy rule ID and clause ID.
+5. The cited clause must directly support the finding.
+6. If there is no supported security finding, return an empty findings list.
+7. Do not report a vulnerability merely because a configuration is unusual.
+8. Focus only on security requirements represented in the supplied policy.
+9. Return ONLY valid JSON.
+10. Do not include Markdown code fences.
+
+TEST CASE:
+
+IAM-WILDCARD-ACTION-SAFE
+
+TERRAFORM CONFIGURATION:
+
+terraform {
+  required_version = ">= 1.9.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+resource "aws_s3_bucket" "target" {
+  bucket = "${var.name_prefix}-iam-scope-${var.environment}"
+}
+
+resource "aws_iam_policy" "target" {
+  name = "${var.name_prefix}-iam-wildcard"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = "s3:GetObject"
+      Resource = "${aws_s3_bucket.target.arn}/*"
+    }]
+  })
+}
+
+SECURITY POLICY:
+
+version: '1.0'
+policy_rules:
+- id: POL-IAM-001
+  title: IAM Least Privilege
+  requirement: 'IAM policies must grant only the permissions required for the intended
+    task and should avoid unrestricted actions such as Action "*" when narrower permissions
+    are possible.
+
+    '
+  evidence:
+    source: AWS IAM Best Practices
+    source_url: https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+    clause_id: POL-IAM-001-C1
+    clause: 'AWS recommends granting least privilege by granting only the permissions
+      required to perform a task.
+
+      '
+
+
+Return JSON with this structure:
+{
+  "test_id": "IAM-WILDCARD-ACTION-SAFE",
+  "findings": [
+    {
+      "finding": "Short finding title",
+      "resource": "Terraform resource address or type",
+      "reason": "Evidence-based explanation",
+      "policy_id": "Exact supplied policy ID",
+      "clause_id": "Exact supplied clause ID",
+      "evidence": "Relevant Terraform evidence",
+      "confidence": 0.0
+    }
+  ]
+}

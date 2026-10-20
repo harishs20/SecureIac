@@ -1,0 +1,14 @@
+{
+  "test_id": "NET-UNRESTRICTED-INGRESS-VULN",
+  "findings": [
+    {
+      "finding": "Unrestricted inbound SSH access allowed",
+      "resource": "aws_security_group.target",
+      "reason": "Ingress rule permits TCP port 22 from 0.0.0.0/0, which violates the policy requiring restricted SSH ingress",
+      "policy_id": "POL-NET-001",
+      "clause_id": "POL-NET-001-C1",
+      "evidence": "ingress { from_port = 22, to_port = 22, protocol = \"tcp\", cidr_blocks = [\"0.0.0.0/0\"] }",
+      "confidence": 1.0
+    }
+  ]
+}

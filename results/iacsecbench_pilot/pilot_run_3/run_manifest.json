@@ -1,0 +1,47 @@
+[
+  {
+    "id": "NET-UNRESTRICTED-INGRESS-VULN",
+    "expected_result": "FAIL",
+    "has_violation": true,
+    "canonical_control": "NET_UNRESTRICTED_INGRESS",
+    "pair_id": "NET_UNRESTRICTED_INGRESS",
+    "policy_id": "POL-NET-001",
+    "clause_id": "POL-NET-001-C1",
+    "mapping_quality": "direct_for_ssh_port_22",
+    "terraform_characters": 782,
+    "prompt_file": "D:\\SecureIAC\\SecureIac\\results\\iacsecbench_pilot\\prompts\\NET-UNRESTRICTED-INGRESS-VULN_prompt.txt",
+    "result_status": "success",
+    "result_file": "D:\\SecureIAC\\SecureIac\\results\\iacsecbench_pilot\\pilot_run_3\\NET-UNRESTRICTED-INGRESS-VULN\\result.json",
+    "raw_file": "D:\\SecureIAC\\SecureIac\\results\\iacsecbench_pilot\\pilot_run_3\\NET-UNRESTRICTED-INGRESS-VULN\\raw_output.txt"
+  },
+  {
+    "id": "IAM-WILDCARD-ACTION-SAFE",
+    "expected_result": "PASS",
+    "has_violation": false,
+    "canonical_control": "IAM_WILDCARD_ACTION",
+    "pair_id": "IAM_WILDCARD_ACTION",
+    "policy_id": "POL-IAM-001",
+    "clause_id": "POL-IAM-001-C1",
+    "mapping_quality": "partial_combined_action_and_resource_wildcard",
+    "terraform_characters": 519,
+    "prompt_file": "D:\\SecureIAC\\SecureIac\\results\\iacsecbench_pilot\\prompts\\IAM-WILDCARD-ACTION-SAFE_prompt.txt",
+    "result_status": "success",
+    "result_file": "D:\\SecureIAC\\SecureIac\\results\\iacsecbench_pilot\\pilot_run_3\\IAM-WILDCARD-ACTION-SAFE\\result.json",
+    "raw_file": "D:\\SecureIAC\\SecureIac\\results\\iacsecbench_pilot\\pilot_run_3\\IAM-WILDCARD-ACTION-SAFE\\raw_output.txt"
+  },
+  {
+    "id": "IAM-WILDCARD-ACTION-VULN",
+    "expected_result": "FAIL",
+    "has_violation": true,
+    "canonical_control": "IAM_WILDCARD_ACTION",
+    "pair_id": "IAM_WILDCARD_ACTION",
+    "policy_id": "POL-IAM-001",
+    "clause_id": "POL-IAM-001-C1",
+    "mapping_quality": "partial_combined_action_and_resource_wildcard",
+    "terraform_characters": 480,
+    "prompt_file": "D:\\SecureIAC\\SecureIac\\results\\iacsecbench_pilot\\prompts\\IAM-WILDCARD-ACTION-VULN_prompt.txt",
+    "result_status": "success",
+    "result_file": "D:\\SecureIAC\\SecureIac\\results\\iacsecbench_pilot\\pilot_run_3\\IAM-WILDCARD-ACTION-VULN\\result.json",
+    "raw_file": "D:\\SecureIAC\\SecureIac\\results\\iacsecbench_pilot\\pilot_run_3\\IAM-WILDCARD-ACTION-VULN\\raw_output.txt"
+  }
+]

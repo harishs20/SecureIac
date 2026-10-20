@@ -1,0 +1,8 @@
+{
+  "case_id": "ENC-UNENCRYPTED-VOLUME-SAFE",
+  "status": "success",
+  "validation_errors": [],
+  "model": "openai/gpt-oss-120b",
+  "policy_id": "POL-EBS-001",
+  "clause_id": "POL-EBS-001-C1"
+}

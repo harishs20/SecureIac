@@ -1,0 +1,14 @@
+{
+  "test_id": "IAM-WILDCARD-ACTION-VULN",
+  "findings": [
+    {
+      "finding": "IAM policy grants unrestricted permissions using wildcard Action",
+      "resource": "aws_iam_policy.target",
+      "reason": "The policy definition contains Action \"*\" which violates the least\u2011privilege requirement.",
+      "policy_id": "POL-IAM-001",
+      "clause_id": "POL-IAM-001-C1",
+      "evidence": "Action = \"*\"",
+      "confidence": 1.0
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+You are a cloud infrastructure security analysis system.
+
+Analyze the supplied Terraform configuration using ONLY
+the supplied security policy.
+
+IMPORTANT RULES:
+
+1. Use ONLY the supplied Terraform configuration and security policy.
+2. Do not use external security rules or assumptions.
+3. Do not invent policy IDs or clause IDs.
+4. Every security finding MUST cite a policy rule ID and clause ID.
+5. The cited clause must directly support the finding.
+6. If there is no supported security finding, return an empty findings list.
+7. Do not report a vulnerability merely because a configuration is unusual.
+8. Focus only on security requirements represented in the supplied policy.
+9. Return ONLY valid JSON.
+10. Do not include Markdown code fences.
+
+TEST CASE:
+
+STO-NO-ACCESS-LOGGING-SAFE
+
+TERRAFORM CONFIGURATION:
+
+terraform {
+  required_version = ">= 1.9.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+resource "aws_s3_bucket" "logs" {
+  bucket = "${var.name_prefix}-sto-logs-${var.environment}"
+}
+
+resource "aws_s3_bucket" "target" {
+  bucket = "${var.name_prefix}-sto-log-${var.environment}"
+}
+
+resource "aws_s3_bucket_logging" "target" {
+  bucket        = aws_s3_bucket.target.id
+  target_bucket = aws_s3_bucket.logs.id
+  target_prefix = "access/"
+}
+
+SECURITY POLICY:
+
+version: '1.0'
+policy_rules:
+- id: POL-S3-003
+  title: S3 Access Logging
+  requirement: 'S3 buckets should have server access logging enabled to maintain records
+    of requests made to the bucket.
+
+    '
+  evidence:
+    source: AWS S3 Server Access Logging Documentation
+    source_url: https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html
+    clause_id: POL-S3-003-C1
+    clause: 'S3 server access logging provides detailed records of requests made to
+      a bucket and can support security and access audits.
+
+      '
+
+
+Return JSON with this structure:
+{
+  "test_id": "STO-NO-ACCESS-LOGGING-SAFE",
+  "findings": [
+    {
+      "finding": "Short finding title",
+      "resource": "Terraform resource address or type",
+      "reason": "Evidence-based explanation",
+      "policy_id": "Exact supplied policy ID",
+      "clause_id": "Exact supplied clause ID",
+      "evidence": "Relevant Terraform evidence",
+      "confidence": 0.0
+    }
+  ]
+}

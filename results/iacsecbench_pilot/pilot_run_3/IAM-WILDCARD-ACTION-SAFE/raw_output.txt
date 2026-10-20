@@ -1,0 +1,4 @@
+{
+  "test_id": "IAM-WILDCARD-ACTION-SAFE",
+  "findings": []
+}

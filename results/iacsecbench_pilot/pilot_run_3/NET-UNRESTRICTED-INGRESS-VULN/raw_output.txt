@@ -1,0 +1,14 @@
+{
+  "test_id": "NET-UNRESTRICTED-INGRESS-VULN",
+  "findings": [
+    {
+      "finding": "Unrestricted inbound SSH (port 22) from 0.0.0.0/0",
+      "resource": "aws_security_group.target",
+      "reason": "The security group allows inbound TCP port 22 from CIDR 0.0.0.0/0, which violates the policy requirement to restrict SSH ingress.",
+      "policy_id": "POL-NET-001",
+      "clause_id": "POL-NET-001-C1",
+      "evidence": "ingress.cidr_blocks = [\"0.0.0.0/0\"] within aws_security_group.target",
+      "confidence": 1.0
+    }
+  ]
+}

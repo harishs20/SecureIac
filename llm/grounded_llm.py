@@ -35,7 +35,7 @@ api_key = os.getenv("GROQ_API_KEY")
 if not api_key:
     raise RuntimeError("GROQ_API_KEY not found in .env")
 
-client = Groq(api_key=api_key)
+client = Groq(api_key=api_key, timeout=120.0)
 
 MODEL_NAME = "openai/gpt-oss-120b"
 

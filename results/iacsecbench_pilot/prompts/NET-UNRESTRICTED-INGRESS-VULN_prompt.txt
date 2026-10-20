@@ -1,0 +1,102 @@
+You are a cloud infrastructure security analysis system.
+
+Analyze the supplied Terraform configuration using ONLY
+the supplied security policy.
+
+IMPORTANT RULES:
+
+1. Use ONLY the supplied Terraform configuration and security policy.
+2. Do not use external security rules or assumptions.
+3. Do not invent policy IDs or clause IDs.
+4. Every security finding MUST cite a policy rule ID and clause ID.
+5. The cited clause must directly support the finding.
+6. If there is no supported security finding, return an empty findings list.
+7. Do not report a vulnerability merely because a configuration is unusual.
+8. Focus only on security requirements represented in the supplied policy.
+9. Return ONLY valid JSON.
+10. Do not include Markdown code fences.
+
+TEST CASE:
+
+NET-UNRESTRICTED-INGRESS-VULN
+
+TERRAFORM CONFIGURATION:
+
+terraform {
+  required_version = ">= 1.9.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+locals {
+  ingress_cidrs = ["0.0.0.0/0"]
+}
+
+resource "aws_vpc" "target" {
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_security_group" "target" {
+  name        = "${var.name_prefix}-net-ingress"
+  description = "Benchmark ingress group"
+  vpc_id      = aws_vpc.target.id
+
+  dynamic "ingress" {
+    for_each = local.ingress_cidrs
+    content {
+      description = "SSH"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = [ingress.value]
+    }
+  }
+
+  egress {
+    description = "All outbound"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+SECURITY POLICY:
+
+version: '1.0'
+policy_rules:
+- id: POL-NET-001
+  title: Restricted SSH Ingress
+  requirement: 'Security groups must not allow unrestricted inbound SSH access on
+    TCP port 22 from 0.0.0.0/0.
+
+    '
+  evidence:
+    source: AWS Security Hub CSPM Controls for Amazon EC2
+    source_url: https://docs.aws.amazon.com/securityhub/latest/userguide/ec2-controls.html
+    clause_id: POL-NET-001-C1
+    clause: 'Security groups should not allow unrestricted ingress access to remote
+      server administration ports such as SSH port 22 from 0.0.0.0/0.
+
+      '
+
+
+Return JSON with this structure:
+{
+  "test_id": "NET-UNRESTRICTED-INGRESS-VULN",
+  "findings": [
+    {
+      "finding": "Short finding title",
+      "resource": "Terraform resource address or type",
+      "reason": "Evidence-based explanation",
+      "policy_id": "Exact supplied policy ID",
+      "clause_id": "Exact supplied clause ID",
+      "evidence": "Relevant Terraform evidence",
+      "confidence": 0.0
+    }
+  ]
+}

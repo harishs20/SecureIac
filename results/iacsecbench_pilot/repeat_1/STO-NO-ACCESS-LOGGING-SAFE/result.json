@@ -1,0 +1,14 @@
+{
+  "test_id": "STO-NO-ACCESS-LOGGING-SAFE",
+  "findings": [
+    {
+      "finding": "S3 bucket \"logs\" does not have server access logging enabled",
+      "resource": "aws_s3_bucket.logs",
+      "reason": "The policy requires every S3 bucket to have server access logging enabled, but the configuration only enables logging for the \"target\" bucket via aws_s3_bucket_logging, leaving the \"logs\" bucket without logging.",
+      "policy_id": "POL-S3-003",
+      "clause_id": "POL-S3-003-C1",
+      "evidence": "resource \"aws_s3_bucket\" \"logs\" { bucket = \"${var.name_prefix}-sto-logs-${var.environment}\" } (no corresponding aws_s3_bucket_logging resource)",
+      "confidence": 1.0
+    }
+  ]
+}

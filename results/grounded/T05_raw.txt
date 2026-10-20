@@ -4,10 +4,10 @@
     {
       "finding": "IAM policy grants unrestricted permissions",
       "resource": "aws_iam_role_policy.excessive_policy",
-      "reason": "The policy statement uses Action \"*\" and Resource \"*\", which violates the least privilege requirement.",
+      "reason": "The policy uses Action \"*\" and Resource \"*\", violating the least privilege requirement.",
       "policy_id": "POL-IAM-001",
       "clause_id": "POL-IAM-001-C1",
-      "evidence": "policy = jsonencode({\n  Version = \"2012-10-17\",\n  Statement = [\n    {\n      Effect   = \"Allow\",\n      Action   = \"*\",\n      Resource = \"*\"\n    }\n  ]\n})",
+      "evidence": "\"Action\": \"*\", \"Resource\": \"*\" in aws_iam_role_policy.excessive_policy",
       "confidence": 1.0
     }
   ]

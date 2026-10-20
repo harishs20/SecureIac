@@ -1,0 +1,14 @@
+{
+  "test_id": "STO-PUBLIC-DATABASE-VULN",
+  "findings": [
+    {
+      "finding": "RDS instance is publicly accessible",
+      "resource": "aws_db_instance.target",
+      "reason": "The configuration sets publicly_accessible to true, violating the policy that RDS instances should not be publicly reachable unless explicitly required.",
+      "policy_id": "POL-RDS-001",
+      "clause_id": "POL-RDS-001-C1",
+      "evidence": "publicly_accessible = true",
+      "confidence": 0.0
+    }
+  ]
+}

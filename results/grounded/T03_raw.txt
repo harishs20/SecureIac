@@ -2,9 +2,9 @@
   "test_id": "T03",
   "findings": [
     {
-      "finding": "Unrestricted inbound SSH access from the internet",
+      "finding": "Unrestricted inbound SSH access from 0.0.0.0/0",
       "resource": "aws_security_group.open_ssh",
-      "reason": "The security group allows inbound TCP traffic on port 22 from 0.0.0.0/0, which violates the requirement to restrict SSH ingress.",
+      "reason": "The security group allows ingress on TCP port 22 from any IPv4 address, which violates the policy requiring SSH ingress to be restricted.",
       "policy_id": "POL-NET-001",
       "clause_id": "POL-NET-001-C1",
       "evidence": "ingress { from_port = 22, to_port = 22, protocol = \"tcp\", cidr_blocks = [\"0.0.0.0/0\"] }",
