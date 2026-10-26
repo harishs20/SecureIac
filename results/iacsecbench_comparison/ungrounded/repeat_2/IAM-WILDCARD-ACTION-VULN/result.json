@@ -1,0 +1,12 @@
+{
+  "test_id": "IAM-WILDCARD-ACTION-VULN",
+  "findings": [
+    {
+      "finding": "IAM policy permits wildcard actions",
+      "resource": "aws_iam_policy.target",
+      "reason": "Policy contains Action set to \"*\" which grants all actions, violating the control that disallows wildcard actions.",
+      "evidence": "policy = jsonencode({\n  Version = \"2012-10-17\",\n  Statement = [{\n    Effect   = \"Allow\",\n    Action   = \"*\",\n    Resource = \"*\"\n  }]\n})",
+      "confidence": 1.0
+    }
+  ]
+}

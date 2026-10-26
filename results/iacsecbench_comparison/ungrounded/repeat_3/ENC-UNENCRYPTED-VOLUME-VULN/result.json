@@ -1,0 +1,12 @@
+{
+  "test_id": "ENC-UNENCRYPTED-VOLUME-VULN",
+  "findings": [
+    {
+      "finding": "EBS volume not encrypted",
+      "resource": "aws_ebs_volume.target",
+      "reason": "The EBS volume resource has `encrypted = false`, which means data at rest is not protected by encryption.",
+      "evidence": "resource \"aws_ebs_volume\" \"target\" {\n  availability_zone = \"eu-west-2a\"\n  size              = 8\n  encrypted         = false\n}",
+      "confidence": 1.0
+    }
+  ]
+}

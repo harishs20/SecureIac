@@ -1,0 +1,98 @@
+[
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "ENC-UNENCRYPTED-VOLUME-SAFE",
+    "expected": 0,
+    "predicted": 0,
+    "correct": 1
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "ENC-UNENCRYPTED-VOLUME-VULN",
+    "expected": 1,
+    "predicted": 1,
+    "correct": 1
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "IAM-WILDCARD-ACTION-SAFE",
+    "expected": 0,
+    "predicted": 0,
+    "correct": 1
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "IAM-WILDCARD-ACTION-VULN",
+    "expected": 1,
+    "predicted": 1,
+    "correct": 1
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "NET-UNRESTRICTED-INGRESS-SAFE",
+    "expected": 0,
+    "predicted": 0,
+    "correct": 1
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "NET-UNRESTRICTED-INGRESS-VULN",
+    "expected": 1,
+    "predicted": 1,
+    "correct": 1
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "STO-NO-ACCESS-LOGGING-SAFE",
+    "expected": 0,
+    "predicted": 0,
+    "correct": 1
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "STO-NO-ACCESS-LOGGING-VULN",
+    "expected": 1,
+    "predicted": 1,
+    "correct": 1
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "STO-PUBLIC-BUCKET-SAFE",
+    "expected": 0,
+    "predicted": 0,
+    "correct": 1
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "STO-PUBLIC-BUCKET-VULN",
+    "expected": 1,
+    "predicted": 0,
+    "correct": 0
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "STO-PUBLIC-DATABASE-SAFE",
+    "expected": 0,
+    "predicted": 0,
+    "correct": 1
+  },
+  {
+    "method": "Ungrounded LLM",
+    "run": 2,
+    "case_id": "STO-PUBLIC-DATABASE-VULN",
+    "expected": 1,
+    "predicted": 1,
+    "correct": 1
+  }
+]

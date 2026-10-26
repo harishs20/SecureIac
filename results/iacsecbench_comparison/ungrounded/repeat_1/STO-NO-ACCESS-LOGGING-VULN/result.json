@@ -1,0 +1,12 @@
+{
+  "test_id": "STO-NO-ACCESS-LOGGING-VULN",
+  "findings": [
+    {
+      "finding": "S3 bucket missing server access logging",
+      "resource": "aws_s3_bucket.target",
+      "reason": "The S3 bucket does not have a logging block configuring server access logging.",
+      "evidence": "resource \"aws_s3_bucket\" \"target\" {\n  bucket = \"${var.name_prefix}-sto-log-${var.environment}\"\n}",
+      "confidence": 1.0
+    }
+  ]
+}

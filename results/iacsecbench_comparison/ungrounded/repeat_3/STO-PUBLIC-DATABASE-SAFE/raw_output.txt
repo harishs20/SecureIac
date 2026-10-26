@@ -1,0 +1,4 @@
+{
+  "test_id": "STO-PUBLIC-DATABASE-SAFE",
+  "findings": []
+}

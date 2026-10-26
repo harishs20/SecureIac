@@ -1,0 +1,12 @@
+{
+  "test_id": "NET-UNRESTRICTED-INGRESS-VULN",
+  "findings": [
+    {
+      "finding": "SSH ingress open to internet",
+      "resource": "aws_security_group.target",
+      "reason": "The security group defines an ingress rule for TCP port 22 with cidr_blocks set to 0.0.0.0/0, allowing SSH from any IPv4 address.",
+      "evidence": "local.ingress_cidrs = [\"0.0.0.0/0\"]\n\ndynamic \"ingress\" {\n  for_each = local.ingress_cidrs\n  content {\n    description = \"SSH\"\n    from_port   = 22\n    to_port     = 22\n    protocol    = \"tcp\"\n    cidr_blocks = [ingress.value]\n  }\n}",
+      "confidence": 1.0
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "test_id": "ENC-UNENCRYPTED-VOLUME-VULN",
+  "findings": [
+    {
+      "finding": "EBS volume is not encrypted",
+      "resource": "aws_ebs_volume.target",
+      "reason": "The configuration sets encrypted = false, which violates the policy requiring encryption for all EBS volumes.",
+      "policy_id": "POL-EBS-001",
+      "clause_id": "POL-EBS-001-C1",
+      "evidence": "encrypted = false",
+      "confidence": 0.0
+    }
+  ]
+}

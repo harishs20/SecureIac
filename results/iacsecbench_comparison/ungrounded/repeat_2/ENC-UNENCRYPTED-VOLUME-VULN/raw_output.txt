@@ -1,0 +1,12 @@
+{
+  "test_id": "ENC-UNENCRYPTED-VOLUME-VULN",
+  "findings": [
+    {
+      "finding": "Unencrypted EBS volume",
+      "resource": "aws_ebs_volume.target",
+      "reason": "The EBS volume is defined with encryption disabled, which does not meet the requirement for encrypted storage.",
+      "evidence": "encrypted = false",
+      "confidence": 1.0
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "test_id": "STO-PUBLIC-DATABASE-VULN",
+  "findings": [
+    {
+      "finding": "RDS instance is publicly accessible",
+      "resource": "aws_db_instance.target",
+      "reason": "The 'publicly_accessible' attribute is set to true, allowing external network access to the database.",
+      "evidence": "publicly_accessible = true",
+      "confidence": 1.0
+    }
+  ]
+}

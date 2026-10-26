@@ -1,0 +1,12 @@
+{
+  "test_id": "IAM-WILDCARD-ACTION-VULN",
+  "findings": [
+    {
+      "finding": "Wildcard action allowed",
+      "resource": "aws_iam_policy.target",
+      "reason": "The IAM policy grants \"*\" (all actions) on \"*\" (all resources), which violates the principle of least privilege.",
+      "evidence": "Action = \"*\"",
+      "confidence": 1.0
+    }
+  ]
+}

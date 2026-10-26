@@ -1,0 +1,17 @@
+{
+  "test_id": "STO-PUBLIC-BUCKET-VULN",
+  "findings": [
+    {
+      "finding": "S3 bucket allows public access",
+      "resource": "aws_s3_bucket_public_access_block.target",
+      "reason": "Public access block settings are all disabled, meaning the bucket is not protected against public ACLs, public bucket policies, or public bucket exposure.",
+      "evidence": [
+        "block_public_acls       = false",
+        "block_public_policy     = false",
+        "ignore_public_acls      = false",
+        "restrict_public_buckets = false"
+      ],
+      "confidence": 0.93
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "test_id": "NET-UNRESTRICTED-INGRESS-VULN",
+  "findings": [
+    {
+      "finding": "SSH ingress from 0.0.0.0/0",
+      "resource": "aws_security_group.target",
+      "reason": "The security group defines an ingress rule that allows TCP port 22 from the CIDR block 0.0.0.0/0, exposing SSH to the public internet.",
+      "evidence": "dynamic \"ingress\" { for_each = local.ingress_cidrs ... from_port = 22 to_port = 22 protocol = \"tcp\" cidr_blocks = [ingress.value] } where local.ingress_cidrs = [\"0.0.0.0/0\"]",
+      "confidence": 1.0
+    }
+  ]
+}

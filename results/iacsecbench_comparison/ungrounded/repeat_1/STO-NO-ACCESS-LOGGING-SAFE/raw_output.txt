@@ -1,0 +1,1 @@
+{"test_id":"STO-NO-ACCESS-LOGGING-SAFE","findings":[]}

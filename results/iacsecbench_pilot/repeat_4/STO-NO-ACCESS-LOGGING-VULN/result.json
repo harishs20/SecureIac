@@ -1,0 +1,23 @@
+{
+  "test_id": "STO-NO-ACCESS-LOGGING-VULN",
+  "findings": [
+    {
+      "finding": "S3 bucket does not have server access logging enabled",
+      "resource": "aws_s3_bucket.logs",
+      "reason": "The bucket definition lacks any server access logging configuration, violating the requirement that S3 buckets must have access logging enabled.",
+      "policy_id": "POL-S3-003",
+      "clause_id": "POL-S3-003-C1",
+      "evidence": "resource \"aws_s3_bucket\" \"logs\" { bucket = \"${var.name_prefix}-sto-logs-${var.environment}\" }",
+      "confidence": 0.0
+    },
+    {
+      "finding": "S3 bucket does not have server access logging enabled",
+      "resource": "aws_s3_bucket.target",
+      "reason": "The bucket definition lacks any server access logging configuration, violating the requirement that S3 buckets must have access logging enabled.",
+      "policy_id": "POL-S3-003",
+      "clause_id": "POL-S3-003-C1",
+      "evidence": "resource \"aws_s3_bucket\" \"target\" { bucket = \"${var.name_prefix}-sto-log-${var.environment}\" }",
+      "confidence": 0.0
+    }
+  ]
+}

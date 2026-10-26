@@ -1,0 +1,4 @@
+{
+  "test_id": "STO-PUBLIC-BUCKET-VULN",
+  "findings": []
+}

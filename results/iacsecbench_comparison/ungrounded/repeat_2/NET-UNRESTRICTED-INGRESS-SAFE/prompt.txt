@@ -1,0 +1,50 @@
+You are a cloud infrastructure security analyzer.
+Assess only this target control: whether security-group ingress permits SSH port 22 from 0.0.0.0/0.
+Do not use an external security policy. Do not report unrelated controls.
+Use only evidence present in the Terraform. If the target control is not
+violated, return an empty findings list. Return only valid JSON:
+{"test_id":"NET-UNRESTRICTED-INGRESS-SAFE","findings":[{"finding":"short title","resource":"Terraform resource","reason":"explanation","evidence":"specific Terraform evidence","confidence":0.0}]}
+Terraform case: NET-UNRESTRICTED-INGRESS-SAFE
+Terraform configuration:
+terraform {
+  required_version = ">= 1.9.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+locals {
+  ingress_cidrs = ["10.0.0.0/16"]
+}
+
+resource "aws_vpc" "target" {
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_security_group" "target" {
+  name        = "${var.name_prefix}-net-ingress"
+  description = "Benchmark ingress group"
+  vpc_id      = aws_vpc.target.id
+
+  dynamic "ingress" {
+    for_each = local.ingress_cidrs
+    content {
+      description = "SSH"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = [ingress.value]
+    }
+  }
+
+  egress {
+    description = "All outbound"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}

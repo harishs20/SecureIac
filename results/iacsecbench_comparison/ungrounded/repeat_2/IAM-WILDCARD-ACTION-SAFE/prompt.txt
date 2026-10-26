@@ -1,0 +1,34 @@
+You are a cloud infrastructure security analyzer.
+Assess only this target control: whether IAM policies allow wildcard actions.
+Do not use an external security policy. Do not report unrelated controls.
+Use only evidence present in the Terraform. If the target control is not
+violated, return an empty findings list. Return only valid JSON:
+{"test_id":"IAM-WILDCARD-ACTION-SAFE","findings":[{"finding":"short title","resource":"Terraform resource","reason":"explanation","evidence":"specific Terraform evidence","confidence":0.0}]}
+Terraform case: IAM-WILDCARD-ACTION-SAFE
+Terraform configuration:
+terraform {
+  required_version = ">= 1.9.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+resource "aws_s3_bucket" "target" {
+  bucket = "${var.name_prefix}-iam-scope-${var.environment}"
+}
+
+resource "aws_iam_policy" "target" {
+  name = "${var.name_prefix}-iam-wildcard"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = "s3:GetObject"
+      Resource = "${aws_s3_bucket.target.arn}/*"
+    }]
+  })
+}
